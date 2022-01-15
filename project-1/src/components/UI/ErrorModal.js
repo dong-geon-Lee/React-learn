@@ -7,6 +7,7 @@ const ErrorModal = ({ title, message, onConfirm }) => {
   return (
     <>
       <div className={classes.backdrop} onClick={onConfirm}></div>
+
       <Card className={classes.modal}>
         <header className={classes.header}>
           <h2>{title}</h2>
