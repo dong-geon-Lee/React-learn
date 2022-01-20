@@ -1,5 +1,5 @@
 import React from "react";
-import ChartBar from "../Chart/ChartBar";
+import ChartBar from "./ChartBar";
 import classes from "./Chart.module.css";
 
 const Chart = ({ dataPoints }) => {

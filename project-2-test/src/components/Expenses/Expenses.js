@@ -3,7 +3,7 @@ import ExpenseList from "./ExpenseList";
 import ExpenseFilter from "./ExpensesFilter";
 import ExpenseChart from "./ExpensesChart";
 import Card from "../UI/Card";
-import classes from "../Expenses/Expenses.module.css";
+import classes from "./Expenses.module.css";
 
 const Expenses = ({ items }) => {
   const [FilteredYear, setFilteredYear] = useState("2022");
