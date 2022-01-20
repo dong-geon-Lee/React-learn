@@ -1,28 +1,21 @@
 import React, { useState } from "react";
-import AddUser from "./components/Users/AddUser";
-import UsersList from "./components/Users/UsersList";
+import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpense/NewExpense";
+import { expenses } from "./data/data";
 
 const App = () => {
-  //  userList의 상태관리는 app에서 시작한다.
-  const [usersList, setUsersList] = useState([]);
+  const [expense, setExpenses] = useState(expenses);
 
-  const addUserHandler = (uName, uAge) => {
-    setUsersList((prev) => {
-      return [
-        {
-          id: Math.floor(Math.random() * 100).toString(),
-          name: uName,
-          age: uAge,
-        },
-        ...prev,
-      ];
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevState) => {
+      return [expense, ...prevState];
     });
   };
 
   return (
-    <div className="container">
-      <AddUser onAddUser={addUserHandler}></AddUser>
-      <UsersList users={usersList}></UsersList>
+    <div>
+      <NewExpense onAddExpense={addExpenseHandler}></NewExpense>
+      <Expenses items={expense}></Expenses>
     </div>
   );
 };

@@ -1,27 +1,22 @@
 import React, { useState } from "react";
-import AddUser from "./components/Users/AddUser";
-import UsersList from "./components/Users/UsersList";
+import { expenses } from "./data/data";
+import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpense/NewExpense";
 
 const App = () => {
-  const [userItem, setUserItem] = useState([]);
+  const [expense, setExpense] = useState(expenses);
 
-  const createUser = (user, password) => {
-    setUserItem((prev) => {
-      return [
-        {
-          id: Math.floor(Math.random() * 100).toString(),
-          username: user,
-          password: password,
-        },
-        ...prev,
-      ];
+  // 추상화 [최종 단계]
+  const saveExpenseHandler = (expense) => {
+    setExpense((prevState) => {
+      return [expense, ...prevState];
     });
   };
 
   return (
     <>
-      <AddUser onAdduser={createUser}></AddUser>
-      <UsersList datas={userItem}></UsersList>
+      <NewExpense onSaveExpenseData={saveExpenseHandler}></NewExpense>
+      <Expenses items={expense}></Expenses>
     </>
   );
 };

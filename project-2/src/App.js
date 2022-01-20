@@ -1,21 +1,61 @@
 import React, { useState } from "react";
-import Expenses from "./components/Expenses/Expenses";
-import NewExpense from "./components/NewExpense/NewExpense";
-import { expenses } from "./data/data";
+import CourseGoalList from "./components/CourseGoals/CourseGoalList/CourseGoalList";
+import CourseInput from "./components/CourseGoals/CourseInput/CourseInput";
+import { goalsData } from "./data/data";
+import styled from "styled-components";
+
+const Section = styled.section`
+  width: 35rem;
+  max-width: 90%;
+  margin: 3rem auto;
+`;
+
+const FormWrapper = styled.section`
+  width: 30rem;
+  max-width: 90%;
+  margin: 3rem auto;
+`;
 
 const App = () => {
-  const [expense, setExpenses] = useState(expenses);
+  const [courseGoals, setcourseGoals] = useState(goalsData);
 
-  const addExpenseHandler = (expense) => {
-    setExpenses((prevState) => {
-      return [expense, ...prevState];
+  const addGoalHandler = (enteredText) => {
+    setcourseGoals((prevState) => {
+      const updatedGoals = [...prevState];
+
+      updatedGoals.unshift({
+        id: Math.floor(Math.random() * 1000).toString(),
+        text: enteredText,
+      });
+
+      return updatedGoals;
+    });
+  };
+
+  const deleteItemHandler = (goalId) => {
+    setcourseGoals((prevState) => {
+      const updatedGoals = prevState.filter((goal) => goal.id !== goalId);
+
+      return updatedGoals;
     });
   };
 
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler}></NewExpense>
-      <Expenses items={expense}></Expenses>
+      <FormWrapper>
+        <CourseInput onAddGoal={addGoalHandler}></CourseInput>
+      </FormWrapper>
+
+      <Section>
+        {courseGoals.length > 0 ? (
+          <CourseGoalList
+            items={courseGoals}
+            onDeleteItem={deleteItemHandler}
+          ></CourseGoalList>
+        ) : (
+          <p style={{ textAlign: "center" }}>No goals Found. Maybe add one?</p>
+        )}
+      </Section>
     </div>
   );
 };

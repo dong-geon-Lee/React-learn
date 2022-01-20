@@ -1,0 +1,21 @@
+.user {
+  padding: 2rem;
+  width: 40rem;
+}
+
+.user label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 1.4rem;
+}
+
+.user input {
+  display: block;
+  width: 100%;
+  margin: 0.6rem 0;
+  font-size: 1.2rem;
+}
+
+.user input:focus {
+  outline: none;
+}
