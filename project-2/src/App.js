@@ -14,6 +14,9 @@ const FormWrapper = styled.section`
   width: 30rem;
   max-width: 90%;
   margin: 3rem auto;
+  padding: 2rem;
+  box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
 `;
 
 const App = () => {
