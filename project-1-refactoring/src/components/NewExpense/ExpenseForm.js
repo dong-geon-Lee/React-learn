@@ -1,4 +1,42 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  width: 100%;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.5);
+
+  & form {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  & div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & label {
+    display: block;
+    width: 100%;
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+    color: #fff;
+  }
+
+  & input {
+    display: inline-block;
+    width: 100%;
+    border-radius: 0.6rem;
+    border: none;
+    padding: 0.4rem;
+  }
+
+  & button {
+    margin: 1rem;
+  }
+`;
 
 const ExpenseForm = ({ onAddExpense, onEditHandler }) => {
   const [title, setTitle] = useState("");
@@ -40,22 +78,30 @@ const ExpenseForm = ({ onAddExpense, onEditHandler }) => {
   };
 
   return (
-    <div>
+    <Wrapper>
       <form onSubmit={submitHandler}>
-        <label>Title</label>
-        <input type="text" onChange={titleChangeHandler} value={title} />
+        <div>
+          <label>Title</label>
+          <input type="text" onChange={titleChangeHandler} value={title} />
+        </div>
 
-        <label>Amount</label>
-        <input type="number" onChange={amountChangeHandler} value={amount} />
+        <div>
+          <label>Amount</label>
 
-        <label>Date</label>
-        <input type="date" onChange={dateChangeHandler} value={date} />
+          <input type="number" onChange={amountChangeHandler} value={amount} />
+        </div>
 
+        <div>
+          <label>Date</label>
+          <input type="date" onChange={dateChangeHandler} value={date} />
+        </div>
+
+        <button type="button" onClick={() => onEditHandler(false)}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </form>
-
-      <button onClick={() => onEditHandler(false)}>Cancel</button>
-    </div>
+    </Wrapper>
   );
 };
 
