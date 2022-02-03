@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Cart from "./components/Cart/Cart";
 import Headers from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
@@ -13,9 +13,9 @@ import Meals from "./components/Meals/Meals";
 const App = () => {
   const [cartIsShown, setCartIsShown] = useState(false);
 
-  const showCartHandler = () => {
+  const showCartHandler = useCallback(() => {
     setCartIsShown(true);
-  };
+  });
 
   const hideCartHanlder = () => {
     setCartIsShown(false);

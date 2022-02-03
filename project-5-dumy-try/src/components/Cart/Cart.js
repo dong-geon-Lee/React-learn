@@ -1,10 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
 import Modal from "../UI/Modal";
 import CartItem from "../Cart/CartItem";
+import Checkout from "./Checkout";
 
 const Cart = (props) => {
+  const [isCheckout, setIsCheckout] = useState(false);
+  const [isSubmitting, setisSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
+
   // Context 가 필요한 이유?
   // addItem, addRemove 함수를 쓰기위해서
   const cartCtx = useContext(CartContext);
@@ -27,8 +32,42 @@ const Cart = (props) => {
     cartCtx.removeItem(id);
   };
 
-  return (
-    <Modal>
+  const orderHandler = () => {
+    setIsCheckout(true);
+  };
+
+  const submitOrderHandler = async (userData) => {
+    setisSubmitting(true);
+
+    await fetch(
+      "https://food-order-5d3b4-default-rtdb.firebaseio.com/orders.json",
+      {
+        method: "POST",
+        body: JSON.stringify({ user: userData, orderedItems: cartCtx.items }),
+      }
+    );
+
+    setisSubmitting(false);
+    setDidSubmit(true);
+
+    cartCtx.clearCart();
+  };
+
+  const modalActions = (
+    <div className={classes.actions}>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>
+      {hasItems && (
+        <button className={classes.button} onClick={orderHandler}>
+          Order
+        </button>
+      )}
+    </div>
+  );
+
+  const cartModalContent = (
+    <>
       {cartCtx.items.map((item) => (
         <CartItem
           key={item.id}
@@ -44,12 +83,38 @@ const Cart = (props) => {
         <span>{totalAmount}</span>
       </div>
 
+      {isCheckout && (
+        <Checkout
+          onConfirm={submitOrderHandler}
+          onCancel={props.onClose}
+        ></Checkout>
+      )}
+      {!isCheckout && modalActions}
+    </>
+  );
+
+  const isSubmittingModalContext = (
+    <>
+      <p>Sending order data...</p>;
+    </>
+  );
+
+  const didSubmitModalContext = (
+    <>
+      <p>Successfully sent the order!</p>
       <div className={classes.actions}>
-        <button className={classes["button--alt"]} onClick={props.onClose}>
+        <button className={classes.button} onClick={props.onClose}>
           Close
         </button>
-        {hasItems && <button className={classes.button}>Order</button>}
       </div>
+    </>
+  );
+
+  return (
+    <Modal onClose={props.onClose}>
+      {!isSubmitting && !didSubmit && cartModalContent}
+      {isSubmitting && isSubmittingModalContext}
+      {!isSubmitting && didSubmit && didSubmitModalContext}
     </Modal>
   );
 };
