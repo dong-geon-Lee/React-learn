@@ -1,10 +1,65 @@
 import React from "react";
+import styled from "styled-components";
+
+const CartItemStyled = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #8a2b06;
+  padding: 1rem 0;
+  margin: 1rem 0;
+
+  & h2 {
+    margin: 0 0 0.5rem 0;
+    color: #363636;
+
+    & + div {
+      width: 10rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & span {
+        font-weight: bold;
+        color: #8a2b06;
+
+        & + span {
+          font-weight: bold;
+          border: 1px solid #ccc;
+          padding: 0.25rem 0.75rem;
+          border-radius: 0.6rem;
+          color: #363636;
+        }
+      }
+    }
+  }
+
+  & button {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #8a2b06;
+    width: 3rem;
+    text-align: center;
+    border-radius: 0.6rem;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 1rem;
+    margin: 0.25rem;
+
+    &:hover,
+    &:active {
+      background-color: #8a2b06;
+      color: #fff;
+    }
+  }
+`;
 
 const CartItem = (props) => {
   const price = `$${props.price.toFixed(2)}`;
 
   return (
-    <li>
+    <CartItemStyled>
       <div>
         <h2>{props.name}</h2>
         <div>
@@ -13,11 +68,11 @@ const CartItem = (props) => {
         </div>
       </div>
 
-      <div>
+      <div className="btn-group">
         <button onClick={props.onRemove}>-</button>
         <button onClick={props.onAdd}>+</button>
       </div>
-    </li>
+    </CartItemStyled>
   );
 };
 

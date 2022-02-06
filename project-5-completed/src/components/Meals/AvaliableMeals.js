@@ -1,5 +1,44 @@
 import React, { useEffect, useState } from "react";
 import MealItem from "./MealItem/MealItem";
+import styled, { keyframes } from "styled-components";
+
+const AvaliableStyled = styled.div`
+  max-width: 60rem;
+  width: 90%;
+  margin: 2rem auto;
+  animation: ${(props) => props.meals} 1s ease-out forwards;
+  background-color: #fff;
+  padding: 1rem 1.4rem;
+  border-radius: 1rem;
+
+  & .mealsLoading {
+    text-align: center;
+    color: #fff;
+  }
+
+  & .mealsError {
+    text-align: center;
+    color: red;
+  }
+
+  & ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+var mealsApper = keyframes`
+  0% {
+    opacity:0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+`;
 
 const AvaliableMeals = () => {
   const [meals, setMeals] = useState([]);
@@ -40,14 +79,14 @@ const AvaliableMeals = () => {
   }, []);
 
   return (
-    <section>
+    <AvaliableStyled meals={mealsApper}>
       {isLoading && (
-        <section>
+        <section className="mealsLoading">
           <p>Loading...</p>
         </section>
       )}
       {httpError && (
-        <section>
+        <section className="mealsError">
           <p>{httpError}</p>
         </section>
       )}
@@ -62,7 +101,7 @@ const AvaliableMeals = () => {
           ></MealItem>
         ))}
       </ul>
-    </section>
+    </AvaliableStyled>
   );
 };
 

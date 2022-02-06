@@ -1,28 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 
-const SummaryStyled = styled.div`
-  text-align: center;
-  max-width: 45rem;
-  width: 90%;
-  margin: 0 auto;
-  position: relative;
-  background-color: #383838;
+const Wrapper = styled.div`
+  background-color: #111;
   color: #fff;
-  border-radius: 1.4rem;
-  padding: 1.4rem;
-  box-shadow: 0 0.1rem 1.8rem 1rem rgba(0, 0, 0, 0.25);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  width: 60%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  border-radius: 1rem;
 
-  & h2 {
-    font-size: 2rem;
+  & h1 {
     margin-bottom: 1rem;
+
+    & ~ p {
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+    }
   }
 `;
 
 const MealsSummary = () => {
   return (
-    <SummaryStyled>
-      <h2>Delicious Food, Delivered To You</h2>
+    <Wrapper>
+      <h1>Delicious Food, Delivered To You</h1>
       <p>
         Choose your favorite meal from our broad selection of available meals
         and enjoy a delicious lunch or dinner at home.
@@ -31,7 +35,7 @@ const MealsSummary = () => {
         All our meals are cooked with high-quality ingredients, just-in-time and
         of course by experienced chefs!
       </p>
-    </SummaryStyled>
+    </Wrapper>
   );
 };
 
