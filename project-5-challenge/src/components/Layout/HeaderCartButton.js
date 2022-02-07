@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import CartContext from "../../store/cart-context";
 import CartIcon from "../Cart/CartIcon";
 
 const Wrapper = styled.button`
@@ -37,13 +38,21 @@ const Wrapper = styled.button`
   }
 `;
 
-const HeaderCartButton = () => {
+const HeaderCartButton = (props) => {
+  const cartContext = useContext(CartContext);
+
+  const { items } = cartContext;
+
+  const numberOfCartItems = items.reduce((curNumber, item) => {
+    return curNumber + item.amount;
+  }, 0);
+
   return (
-    <Wrapper>
+    <Wrapper onClick={props.onShowCart}>
       <CartIcon></CartIcon>
       <span>Your Cart</span>
       <div>
-        <span>0</span>
+        <span>{numberOfCartItems}</span>
       </div>
     </Wrapper>
   );
