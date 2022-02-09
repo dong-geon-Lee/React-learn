@@ -15,11 +15,11 @@ const Wrapper = styled.div`
   }
 `;
 
-const Header = () => {
+const Header = (props) => {
   return (
     <Wrapper>
       <h1>ReactMeals</h1>
-      <HeaderCartButton></HeaderCartButton>
+      <HeaderCartButton onShowCart={props.onShowCart}></HeaderCartButton>
     </Wrapper>
   );
 };

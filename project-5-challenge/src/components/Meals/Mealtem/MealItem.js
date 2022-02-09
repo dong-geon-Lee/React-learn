@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import CartContext from "../../../store/cart-context";
 import MealItemForm from "./MealItemForm";
 
 const Wrapper = styled.li`
@@ -23,6 +24,17 @@ const Wrapper = styled.li`
 `;
 
 const MealItem = (props) => {
+  const cartContext = useContext(CartContext);
+
+  const addItemHandler = (amount) => {
+    cartContext.addItem({
+      id: props.id,
+      name: props.name,
+      amount: amount,
+      price: props.price,
+    });
+  };
+
   return (
     <Wrapper>
       <div>
@@ -32,7 +44,10 @@ const MealItem = (props) => {
       </div>
 
       <div>
-        <MealItemForm></MealItemForm>
+        <MealItemForm
+          id={props.id}
+          onAddCartItem={addItemHandler}
+        ></MealItemForm>
       </div>
     </Wrapper>
   );
